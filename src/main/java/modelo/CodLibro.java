@@ -36,10 +36,17 @@ public class CodLibro implements IModelo {
         this.idlibro = idlibro;
     }
 
+    public String prepararInsert(){
+        ManejadorDeArchivos ma = new  ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/nuevo_codlibro.sql");
+        sql = sql.replace("{COD_LIBRO}", this.codLibro);
+        return sql;
+    }
+
     @Override
     public void insert() {
-        String lo = "INSERT INTO codLibro VALUES ('" + this.codlibro + "'," + this.idlibro + ");";
-        CONECTOR.ejecutarSentencia(lo);
+        String insert = this.prepararInsert();
+        CONECTOR.ejecutarSentencia(prepararInsert);
     }
 
     /**
