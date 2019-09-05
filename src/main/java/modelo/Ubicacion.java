@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import util.ConectorDB;
+import util.ManejadorDeArchivos;
 
 /**
 * Esta clase permite guardar u obtener la ubicación física de cada libro.
@@ -51,11 +52,16 @@ public class Ubicacion implements IModelo{
      */    
     @Override
     public void insert() {
-        String insert = "INSERT INTO `biblioteca`.`ubicacion`"
-                + " (`sector`) "
-                + "VALUES"
-                + " ('" + this.Ubicacion + "');";
+        String insert = this.prepararInsert();
         conector.ejecutarSentencia(insert);
+    }
+    
+    public String prepararInsert(){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("nueva_ubicacion.sql");
+        sql = sql.replace("{SECTOR}", this.Ubicacion);
+        return sql;
+        
     }
      /** 
      * @deprecated 
