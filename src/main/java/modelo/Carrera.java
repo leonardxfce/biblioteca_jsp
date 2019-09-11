@@ -1,6 +1,7 @@
 package modelo;
-
+import util.ConectorDB;
 import java.util.ArrayList;
+import util.ManejadorDeArchivos;
 
 /**
 * Esta clase permite guardar una nueva carrera, modificar una carrera ya cargada, o leer todas las carreras existentes en la base de datos.
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 */
 public class Carrera implements IModelo{
     private String NombreCarrera;
+       ConectorDB conector = new ConectorDB();
 
     // Constructor:
     /**
@@ -38,11 +40,21 @@ public class Carrera implements IModelo{
      */
     @Override
     public void insert(){
-     String insert = "INSERT INTO `carrera`" +
+        String insert = this.insert2();
+        conector.ejecutarSentencia(insert);
+    
+     /**String insert = "INSERT INTO `carrera`" +
             "(`nombreCarrera`)" +
             "VALUES" +
             "('"+this.NombreCarrera+"');";
      CONECTOR.ejecutarSentencia(insert);
+     */
+    }
+    public String insert2(){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("nuevacarrera.sql");
+        sql = sql.replace("NombreCarrera", this.NombreCarrera);    
+        return sql;
     }
 
     /**
