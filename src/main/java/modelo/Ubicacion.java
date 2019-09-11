@@ -58,7 +58,7 @@ public class Ubicacion implements IModelo{
     
     public String prepararInsert(){
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("nueva_ubicacion.sql");
+        String sql = ma.abrirArchivo("plantillas/nueva_ubicacion.sql");
         sql = sql.replace("{SECTOR}", this.Ubicacion);
         return sql;
         

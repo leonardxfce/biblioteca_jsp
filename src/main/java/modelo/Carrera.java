@@ -52,7 +52,7 @@ public class Carrera implements IModelo{
     }
     public String insert2(){
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("nuevacarrera.sql");
+        String sql = ma.abrirArchivo("plantillas/nuevacarrera.sql");
         sql = sql.replace("NombreCarrera", this.NombreCarrera);    
         return sql;
     }
