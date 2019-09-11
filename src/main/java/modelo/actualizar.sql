@@ -1,0 +1,1 @@
+UPDATE carrera SET nombreCarrera = nombreCarrera WHERE carrera.idCarrera = identificador; 
