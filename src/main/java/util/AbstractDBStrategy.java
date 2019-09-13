@@ -7,8 +7,9 @@ public abstract class AbstractDBStrategy implements DBStrategy {
 
     
     public enum connectionResourceLocation {
-        MYSQL("jdbc:mysql://localhost/biblioteca","bibliotecario","ies9024");
-        //Add Here new connections constants
+        MYSQL("jdbc:mysql://localhost/biblioteca","bibliotecario","ies9024"),
+        SQLITE("jdbc:sqlite:/home/Database.db","bibliotecario","ies9024"); //TODO:Add Patch where will be the data base
+        //Add new connections constants here!
 
 
         private static final Map<String, connectionResourceLocation> RESOURCE = new HashMap<>();

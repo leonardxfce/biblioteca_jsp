@@ -21,7 +21,7 @@ public class FactoryStrategy {
         if (option == MYSQL){
             result = new MySQLConnection();
         }else if(option == SQLITE){
-            //TODO:Make SQLITE Strategy
+            result = new SQLiteConnection();
         }
 
     return result;
