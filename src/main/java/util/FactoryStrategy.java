@@ -19,7 +19,7 @@ public class FactoryStrategy {
     public DBStrategy getDBStrategy(String option){
         DBStrategy result = null;
         if (option == MYSQL){
-            result = new SQLConnection();
+            result = new MySQLConnection();
         }else if(option == SQLITE){
             //TODO:Make SQLITE Strategy
         }

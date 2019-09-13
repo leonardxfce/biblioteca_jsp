@@ -13,11 +13,12 @@ import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SQLConnection extends AbstractDBStrategy {
+public class MySQLConnection extends AbstractDBStrategy {
 
-    private final String UNIFORM_RESOURCE_LOCATION = "jdbc:mysql://localhost/biblioteca";
-    private final String USER = "bibliotecario";
-    private final String PASSWORD = "ies9024";
+    private final String UNIFORM_RESOURCE_LOCATION = connectionResourceLocation.MYSQL.resource;
+    private final String USER = connectionResourceLocation.MYSQL.username;
+    private final String PASSWORD = connectionResourceLocation.MYSQL.password;
+    private final Integer BACKUP_PERIOD = 86400000;
 
     private Connection connection;
 
@@ -53,32 +54,31 @@ public class SQLConnection extends AbstractDBStrategy {
     @Override
     public List executeSelectStatement(String statement) {
         this.getConextion();
-        System.out.println(statement);
-        ArrayList Lista_completa = new ArrayList();
+        List completeList = new ArrayList();
         ResultSet rs;
         ResultSetMetaData rsmd;
         try {
             Statement sentencia = this.connection.createStatement();
             rs = sentencia.executeQuery(statement);
             rsmd = rs.getMetaData();
-            int Columnas = rsmd.getColumnCount();
+            int columns = rsmd.getColumnCount();
             while (rs.next()) {
-                ArrayList Fila = new ArrayList();
-                for (int i = 1; i <= Columnas; i++) {
-                    Fila.add(rs.getString(i));
+                List row = new ArrayList();
+                for (int i = 1; i <= columns; i++) {
+                    row.add(rs.getString(i));
                 }
-                Lista_completa.add(Fila);
+                completeList.add(row);
             }
 
             sentencia.close(); // <- Cierre de sentencia.
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).log(Level.WARNING,"Cannot execute Select statement",e);
         }
 
         this.closeConnection(); // <- Cierre de conexión.
 
-        return Lista_completa;
+        return completeList;
     }
 
     @Override
@@ -92,18 +92,18 @@ public class SQLConnection extends AbstractDBStrategy {
 
     @Override
     public boolean makeTransactions(List<String> statements) {
-        boolean respuesta;
+        boolean result;
         this.getConextion();
         try {
             this.connection.setAutoCommit(false);
 
-            Statement sentencia = this.connection.createStatement();
+            Statement localStatement = this.connection.createStatement();
             for(String param :  statements){
                 System.out.println(param);
-                sentencia.executeUpdate(param);
+                localStatement.executeUpdate(param);
             }
             connection.commit();
-            respuesta = true;
+            result = true;
 
         } catch (SQLException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING,"Cannot Commit...Trying rollBack",ex);
@@ -114,31 +114,28 @@ public class SQLConnection extends AbstractDBStrategy {
             } catch (SQLException e) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Cannot Rollback, Call all Fucking Fireman!",e);
             }
-            respuesta = false;
+            result = false;
         }
 
         this.closeConnection(); // <- Cierre de conexión.
-        return respuesta;
+        return result;
     }
 
     @Override
     public void makeBackUp() {
         Date date = new Date();
         Timer temporizador = new Timer();
-        temporizador.schedule(new BackUp(), date, 86400000);
+        temporizador.schedule(new BackUp(), date, BACKUP_PERIOD);
     }
 
     @Override
     public Object statConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(UNIFORM_RESOURCE_LOCATION, USER, PASSWORD);
-            System.out.println("Conexión.");
+            Logger.getLogger(getClass().getName()).log(Level.INFO,"Connexion Success!");
         } catch (SQLException e) {
-            System.out.println("Conexión: Error.");
-            System.out.println("Revisar Contraseña");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Clase del Driver no encontrada");
+            Logger.getLogger(getClass().getName()).log(Level.INFO,"Connexion Failed!",e);
+
         }
     return connection;
     }
