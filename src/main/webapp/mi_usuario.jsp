@@ -1,21 +1,4 @@
-<%-- 
-    Document   : historial_prestamos
-    Created on : 09-nov-2018, 15:34:40
-    Author     : Tomas Camargo
---%>
-<%
-    if(session.getAttribute("user") == null){
-        response.sendRedirect("login.jsp");
-        out.println(session.getAttribute("user"));   
-    }
-    String tipo;
-    if(session.getAttribute("type") == null){
-        tipo = "1";
-    } else {
-        tipo = "0";
-    }
-%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -114,7 +97,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/verificacion.js"></script>
-    <script type="text/javascript" src="js/ajax.js" onload="preBusqueda(<%out.println(session.getAttribute("id"));%>, 'ControladorUsuario', <%out.println(tipo);%>), almacenarID(<%out.println(session.getAttribute("id"));%>)"></script>
+    <script type="text/javascript"></script>
     </body>
 </html>
 

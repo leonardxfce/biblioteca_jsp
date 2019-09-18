@@ -1,0 +1,1 @@
+INSERT INTO biblioteca.autor VALUES ('Nombre', 'Apellido')
