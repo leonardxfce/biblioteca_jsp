@@ -1,0 +1,1 @@
+DELETE FROM `codlibro` WHERE 'codLibro' = 'codlib';
