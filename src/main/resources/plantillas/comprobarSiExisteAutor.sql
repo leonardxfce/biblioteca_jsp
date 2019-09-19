@@ -1,1 +1,1 @@
-SELECT count(*) as 'Autor' FROM biblioteca.autor WHERE autor.Nombre = {Nombre} && autor.Apellido = {Apellido};
+SELECT count(*) as 'Autor' FROM biblioteca.autor WHERE autor.Nombre = '{Nombre}' && autor.Apellido ='{Apellido}';
