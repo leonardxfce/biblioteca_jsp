@@ -1,1 +1,1 @@
-SELECT 'idlibro' FROM 'libro' WHERE libro.Titulo = 'TITULO';
+SELECT `idlibro` FROM `libro` WHERE libro.Titulo = `TITULO`;

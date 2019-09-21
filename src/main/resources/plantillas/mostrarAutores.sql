@@ -1,3 +1,3 @@
-SELECT 'idAutor', concat(Nombre,Apellido) as 'Autor' 
-FROM 'autor'
-ORDER BY 'Autor' ASC;
+SELECT `idAutor`, concat(`Nombre`,`Apellido`) as `Autor` 
+FROM `autor`
+ORDER BY `Autor` ASC;
