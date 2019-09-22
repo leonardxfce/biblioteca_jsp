@@ -1,1 +1,1 @@
-SELECT `idlibro`, `Titulo` FROM `libro` WHERE `libro`.`Prestable` = 1 ORDER BY `Titulo` ASC;
+SELECT `idlibro`, `Titulo` FROM `biblioteca`.`libro` WHERE `libro`.`Prestable` = 1 ORDER BY `Titulo` ASC;

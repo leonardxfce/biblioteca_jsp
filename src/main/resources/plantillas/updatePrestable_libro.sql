@@ -1,0 +1,1 @@
+UPDATE `biblioteca`.`libro` SET `Prestable` = {VALOR} WHERE `idLibro` = {ID_EXISTENCIA};
