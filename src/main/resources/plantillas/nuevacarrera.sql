@@ -1,1 +1,1 @@
-INSERT INTO `biblioteca`.`carrera` (`nombreCarrera`) VALUES ('NombreCarrera');
+INSERT INTO `biblioteca`.`carrera` (`nombreCarrera`) VALUES ('{NombreCarrera}');

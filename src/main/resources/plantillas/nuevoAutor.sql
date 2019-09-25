@@ -1,1 +1,1 @@
-INSERT INTO biblioteca.autor VALUES (`Nombre`, `Apellido`)
+INSERT INTO `biblioteca`.`autor` VALUES ('{Nombre}', '{Apellido}');
