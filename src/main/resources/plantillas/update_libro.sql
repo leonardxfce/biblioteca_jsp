@@ -1,1 +1,1 @@
-UPDATE libro SET Titulo = 'TITULO', Tema_idTema = ID_TEMA WHERE idLibro = ID_LIBRO;
+UPDATE `libro` SET `Titulo` = '{TITULO}', `Tema_idTema` = '{ID_TEMA}' WHERE `idLibro` = '{ID_LIBRO}';
