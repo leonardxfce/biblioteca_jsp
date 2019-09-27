@@ -65,29 +65,22 @@ public class Libro implements IModelo {
 
     @Override
     public void insert() {
-        String insert = "INSERT INTO `biblioteca`.`libro`"
-                + "	(`Titulo`, `Tema_idTema`, `Ubicacion_id_ubicacion`, `Prestable`)"
-                + "VALUES"
-                + "	('" + this.Titulo + "', " + this.Tema + ",1,1);";
+        String insert = this.prepararInsert();
         CONECTOR.ejecutarSentencia(insert);
     }
 
-    public String prepararUpdate(int identificador) {
+    public String prepararUpdate(String identificador) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
         String sql = ma.abrirArchivo("plantillas/update_libro.sql");
         sql = sql.replace("{TITULO}", this.Titulo);
         sql = sql.replace("{ID_TEMA}", Integer.toString(this.Tema));
-        sql = sql.replace("{IDENTIFICADOR}", Integer.toString(identificador));
+        sql = sql.replace("{IDENTIFICADOR}", identificador);
         return sql;
     }
 
     @Override
     public int update(String identificador) {
-        String update = "UPDATE libro SET Titulo = '" + this.Titulo + "',"
-                + "Tema_idTema = " + this.Tema
-                + " WHERE idLibro = " + identificador + ";";
-
-        System.out.println(update);
+        String update = this.prepararUpdate(identificador);
         return CONECTOR.ejecutarSentencia(update);
     }
 
@@ -99,7 +92,8 @@ public class Libro implements IModelo {
 
     @Override
     public ArrayList selectTodos() {
-        String select = "SELECT `idlibro`, `Titulo` FROM `libro` WHERE libro.Prestable = 1 ORDER BY `Titulo` ASC;";
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String select = ma.abrirArchivo("plantillas/selectTodos_libro.sql");
         return CONECTOR.ejecutarConsulta(select);
     }
 
@@ -111,9 +105,7 @@ public class Libro implements IModelo {
     }
 
     public int contarLibros(String idlibro) {
-        String select = "SELECT count(*) FROM `codLibro` "
-                + "INNER JOIN libro ON codlibro.idlibro = libro.idlibro "
-                + "WHERE libro.`idlibro` = " + idlibro + " AND libro.Prestable = 1";
+        String select = this.prepararContarLibros(idlibro);
         ArrayList cantidadLibros = CONECTOR.ejecutarConsulta(select);
         return Integer.parseInt(((ArrayList) cantidadLibros.get(0)).get(0).toString());
     }
@@ -127,9 +119,7 @@ public class Libro implements IModelo {
 
     @Override
     public int comprobarExistenciaDeRegistro(String[] data) {
-        String lo = "SELECT idlibro"
-                + " FROM libro"
-                + " WHERE libro.Titulo = \"" + data[1] + "\";";
+        String lo = this.prepararComprobarExistenciaDeRegistro(data);
         ArrayList existencia = CONECTOR.ejecutarConsulta(lo);
         if (existencia.isEmpty()) {
             return 0;
@@ -151,7 +141,7 @@ public class Libro implements IModelo {
     }
 
     public ArrayList selectUno(String id) {
-        String select = "SELECT idLibro, Titulo ,Tema_idTema FROM libro WHERE idLibro = " + id + ";";
+        String select = this.prepararSelectUno(id);
         ArrayList existencia = CONECTOR.ejecutarConsulta(select);
         return (ArrayList) existencia.get(0);
     }
@@ -170,8 +160,7 @@ public class Libro implements IModelo {
     }
 
     public void updatePrestable(int idExistencia, int valor) {
-        String update = "UPDATE libro SET Prestable = " + valor
-                + " WHERE idLibro = " + idExistencia + ";";
+        String update = this.prepararUpdatePrestable(idExistencia, valor);
         System.out.println(update);
         CONECTOR.ejecutarSentencia(update);
     }

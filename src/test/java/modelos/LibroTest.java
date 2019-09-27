@@ -26,7 +26,7 @@ public class LibroTest {
         Libro libro = new Libro();
         libro.setTitulo("PEPITO");
         libro.setTema(2);
-        String resultado = libro.prepararUpdate(1);
+        String resultado = libro.prepararUpdate("1");
         assertEquals(esperado, resultado);
     }
 
@@ -61,6 +61,14 @@ public class LibroTest {
         String esperado = "UPDATE `biblioteca`.`libro` SET `Prestable` = 1 WHERE `idLibro` = 1;";
         Libro libro = new Libro();
         String resultado = libro.prepararUpdatePrestable(1, 1);
+        assertEquals(esperado, resultado);
+    }
+
+    @Test
+    public void prepararSelectTodos() {
+        String esperado = "SELECT `idlibro`, `Titulo` FROM `biblioteca`.`libro` WHERE `libro`.`Prestable` = 1 ORDER BY `Titulo` ASC;";
+        Libro libro = new Libro();
+        String resultado = libro.prepararSelectTodos();
         assertEquals(esperado, resultado);
     }
 }
