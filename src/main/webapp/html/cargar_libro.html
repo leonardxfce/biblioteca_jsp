@@ -1,0 +1,289 @@
+
+<html lang="es">
+
+  <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>A�adir Libro</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/logo-nav.css" rel="stylesheet">
+    <link rel="stylesheet" href="mycssCargrLibro.css">
+   
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="img/NUEVOLOGO copy.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-default" type="button" class="colorboton"><a >Inicio</a></button>
+                    </li>
+                    <li class="nav-item" style=>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Prestamo
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a >Prestar libro</a></li>
+                                <li><a >Historial</a></li>
+    
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" class="anchura"></li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Libros
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a ></a></li>
+                                <li><a ></a></li>
+                                <li><a >Inventario</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" class="anchura"></li>
+                    <li class="nav-item" >
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" sclass="colorboton">Gestion
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                               
+                                <li><a >Carreras</a></li>
+                                <li><a >Autores</a></li>
+                                <li><a >Usuarios</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" class="anchura"></li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Bedel
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                             
+                                <li><a >Crear bedel</a></li>
+                                <li><a >Mi usuario</a></li>
+    
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" class="anchura"></li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-default" type="button" class="colorboton"
+                                    onclick="window.location.replace('../BibliotecaBootstrap/mi_usuario.html');" >Mi usuario</button>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a ><button class="btn btn-default" type="button" class="colorboton">Salir</button>
+                            </a>
+                        </div>
+                        <script>
+                        function cerrarSesion(){
+                            $.post('ControladorUsuario', {
+                                envio : "verificar;,;invalidate"
+                            });
+                            location.replace("login.html");
+                        }
+                    </script>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+    <div class="container"  id="form">
+      <div class="row mt-5">
+        <div class="col-12">
+          <center><h1>A�adir libro</h1></center>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-2"></div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="tit-libro">Titulo del libro</label>
+              <input type="text" class="form-control" name="atributosLibro">
+              <datalist id="datalistAutores"></datalist>
+            </div>
+          </div>
+          <div class="col-3">
+            
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-2"></div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="nom-autor">Nombre del autor/es</label>
+              <div class="input-group">
+                <input type="text" class="form-control" list="datalistAutores" 
+                     id='campoAutor' onfocus="llenarDatalist('datalistAutores', 'ControladorAutor')" 
+                     >
+                <div class="input-group-append" onclick="crearElemento()">
+                    <button class="input-group-text">&darr;</button>
+                </div>
+                <datalist id="datalistAutores"></datalist>
+              </div>
+              <div class="autoresAgregados mt-1" id="padre">
+                  
+              </div>
+              
+            </div>
+            
+          </div>
+          <div class="col-3">
+              <label for="tit-libro" class="relleno">relleno</label>
+              <div class="form-group input-group">
+                <input type="hidden" class="form-control" id="tit-libro">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" 
+                    data-toggle="modal" data-target="#AgregarAutor">A�adir autor</button>
+                </span>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-2"></div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="cod-lib">C�digo libro</label>
+              <input type="text" class="form-control" id="codLib" name="atributosLibro">
+            </div>
+          </div>
+          <div class="col-3"></div>
+      </div>
+      <div class="row">
+          <div class="col-2"></div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="tema">Tema</label>
+              <select class="form-control" id="campoTemas" name="atributosLibro"></select>
+            </div>
+          </div>
+          <div class="col-3">
+              <label for="tit-libro" class="relleno">relleno</label>
+              <div class="form-group input-group">
+                <input type="hidden" class="form-control" id="tit-libro">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" 
+                            data-toggle="modal" data-target="#AgregarTema">A�adir tema</button>
+                </span>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-8"></div>
+        <div class="col-3">
+            <button class="btn btn-secondary btn-lg " type="button" id="Cargar">A�adir</button>
+        </div>
+      </div>
+        
+        <div class="alert_position" id="container-alert">
+
+        </div>
+        <br>
+    </div>
+        </div>
+    
+    <!-- Pop up Agregar Autor -->
+    <div id="AgregarAutor" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="margin: 7rem auto;">
+
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar autor</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cod-lib">Nombre del autor</label>
+                                <input type="text" class="form-control" id='nombre' name="autor">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cod-lib">Apellido del autor</label>
+                                <input type="text" class="form-control" id='apellido' name="autor">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" 
+                           onclick="cargar('autor','ControladorAutor')">Agregar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--Fin Pop up Agregar Autor -->
+    
+    <!-- Pop up Agregar Tema -->
+    <div id="AgregarTema" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="margin: 7rem auto;">
+
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar tema</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cod-lib">Nuevo tema</label>
+                                <input type="text" class="form-control" id='nombreTema' name="tema">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" 
+                           onclick="cargar('tema', 'ControladorTema')">Agregar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+    
+    
+    
+    
+    
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ajax.js" 
+        onload="llenarSelect('campoUbicaciones','ControladorUbicacion'); 
+            llenarSelect('campoTemas','ControladorTema')"></script>
+    <script src="js/verificacion.js"></script>
+        <script src="js/manejo_autores.js"></script>
+  </body>
+
+</html>
