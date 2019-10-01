@@ -91,17 +91,10 @@
                   </li>
                   <li class="nav-item">
                       <div class="dropdown">
-                          <a href="logout.html"><button class="btn btn-default" type="button" class="colorboton">Salir</button>
+                          <a href="lgout.html"><button class="btn btn-default" type="button" class="colorboton">Salir</button>
                           </a>
                       </div>
-                      <script>
-                          function cerrarSesion(){
-                              $.post('ControladorUsuario', {
-                                  envio : "verificar;,;invalidate"
-                              });
-                              location.replace("login.html");
-                          }
-                      </script>
+                      <script src="js/funcionesDeLasPainas.js"></script>
                   </li>
                 </ul>
               </div>
@@ -203,21 +196,7 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/PopUp.js"></script>
     <script>
-            var elemnt = document.getElementsByName("atributosLibro");
-            $(elemnt).attr('disabled', true);
-            $("#campoAutor").attr('disabled', true);
-            $('#modificar').attr('disabled', true);
-            $("#Cancelar").click(function (){
-                $('#busca').attr('disabled', false);
-                $('#modificar').attr('disabled', true);
-                $(elemnt).val("");
-                $("#campoAutor").val("");
-                $(this).hide();
-                $('#Busqueda').show();
-                $(elemnt).attr('disabled', true);
-                $("#campoAutor").attr('disabled', true);
-                var padre = document.getElementById("padre").innerHTML = "";
-            }); 
+          desabilitar()
         </script>
         <script src="js/ajax.js" onload="llenarSelect('campoTemas','ControladorTema'), llenarDatalist('datalistAutores', 'ControladorAutor')"></script>
     <script src="js/verificacion.js"></script>

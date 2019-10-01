@@ -9,17 +9,7 @@
 
     <title>A�adir Libro</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/logo-nav.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="amycss.css">
-
-   
-
-  </head>
+   </head>
 
   <body>
 
@@ -95,17 +85,10 @@
               </li>
               <li class="nav-item">
                   <div class="dropdown">
-                      <a href="logout.html"><button class="btn btn-default" type="button" class="colorboton">Salir</button>
+                      <a href="lgout.html"><button class="btn btn-default" type="button" class="colorboton">Salir</button>
                       </a>
                   </div>
-                  <script>
-                      function cerrarSesion(){
-                          $.post('ControladorUsuario', {
-                              envio : "verificar;,;invalidate"
-                          });
-                          location.replace("login.html");
-                      }
-                  </script>
+                  <script src="js/funcionesDeLasPainas.js"></script>
               </li>
             </ul>
           </div>
@@ -277,13 +260,4 @@
     
     
     
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/ajax.js" 
-        onload="llenarSelect('campoUbicaciones','ControladorUbicacion'); 
-            llenarSelect('campoTemas','ControladorTema')"></script>
-    <script src="js/verificacion.js"></script>
-        <script src="js/manejo_autores.js"></script>
-  </body>
-
-</html>
+  
