@@ -1,1 +1,1 @@
-SELECT count(*) FROM carrera WHERE nombreCarrera =
+SELECT count(*) FROM carrera WHERE nombreCarrera = '{id}';
