@@ -1,2 +1,1 @@
-SELECT count(*) FROM `codLibro` INNER JOIN `libro` ON `codlibro`.`idlibro` = `libro`.`idlibro`
-WHERE `libro`.`idlibro` = '{ID_LIBRO}' AND `libro`.`Prestable` = 1;
+SELECT count(*) FROM `biblioteca`.`codLibro` INNER JOIN `biblioteca`.`libro` ON `codlibro`.`idlibro` = `libro`.`idlibro` WHERE `libro`.`idlibro` = {ID_LIBRO} AND `libro`.`Prestable` = 1;
