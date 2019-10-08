@@ -40,6 +40,7 @@ public abstract class ControladorBase extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String paquete;
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
@@ -131,7 +132,7 @@ public abstract class ControladorBase extends HttpServlet {
                         break;
                 }
             }
-        
+
     }
 
     /**
@@ -276,7 +277,7 @@ public abstract class ControladorBase extends HttpServlet {
     public void setNumeroDeError(int error) {
         this.numeroDeError = error;
     }
-    
+
     public abstract void eliminar(int id);
 
     public abstract String verificar(String[] parametros, HttpServletRequest request);
