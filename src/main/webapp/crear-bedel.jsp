@@ -38,20 +38,6 @@
         </div>
       </div>
         
-       <!-- <center><div class="col-2 mb-3">
-                <select id="tipoUsuario" class="form-control" onchange="llenarTablaUsuarios()">
-                <option value="0">Elegir opción</option>
-                <option value="alumno">Alumnos</option>
-                <option value="vedel">Vedeles</option>
-            </select>
-                <button type="button" class="btn btn-primary" style="width: auto;" data-toggle='modal' data-target='#AñadirAdmin'>
-                Añadir vedel
-            </button>
-            </div> 
-            
-            
-        </center>-->
-       
        <div class="row">
           <div class="col-2"></div>
           <div class="col-6">

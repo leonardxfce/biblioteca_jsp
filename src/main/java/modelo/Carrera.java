@@ -53,7 +53,7 @@ public class Carrera implements IModelo{
     public String insert2(){
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
         String sql = ma.abrirArchivo("plantillas/nuevacarrera.sql");
-        sql = sql.replace("NombreCarrera", this.NombreCarrera);    
+        sql = sql.replace("{NombreCarrera}", this.NombreCarrera);    
         return sql;
     }
 
@@ -62,10 +62,16 @@ public class Carrera implements IModelo{
      */
     @Override
     public int update(String identificador) {
-        String update = "UPDATE `carrera` SET `nombreCarrera` = '"+this.NombreCarrera
-                +"' WHERE `carrera`.`idCarrera` = "+identificador+";";
-        System.out.println(update);
+        String update = this.update2();
+        //conector.ejecutarSentencia(update);
         return CONECTOR.ejecutarSentencia(update);
+    }
+   
+    public String update2 (){
+          ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/actualizar.sql");
+        sql = sql.replace("{NombreCarrera}", this.NombreCarrera);  
+        return sql;
     }
 
     /**
@@ -74,26 +80,51 @@ public class Carrera implements IModelo{
      */
     @Override
     public ArrayList selectTodos() {
-        String select = "SELECT `idCarrera`,`nombreCarrera` FROM `carrera` ORDER BY `nombreCarrera` ASC;";
+        String select = this.selecTodos2();
         return CONECTOR.ejecutarConsulta(select);
+    }
+    public String selecTodos2(){
+         ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/seleccionartodos.sql");
+        sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
+        return sql;
     }
 
     @Override
     public int comprobarExistenciaDeRegistro(String[] data) {
-        String lo = "SELECT count(*) FROM carrera WHERE nombreCarrera = '" + data[1] + "';";
+        String lo = this.comprobarExistenciaDeRegistro2();
         return Integer.parseInt(((ArrayList) CONECTOR.ejecutarConsulta(lo).get(0)).get(0).toString());
+    }
+    public String comprobarExistenciaDeRegistro2(){
+          ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/comprobarusuario.sql");
+        sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
+        return sql;
     }
     
     @Override
     public int delete(int id){
-        String delete = "DELETE FROM `carrera` WHERE `idCarrera` = "+id+";";
+        String delete = this.delete2();
         return CONECTOR.ejecutarSentencia(delete);
+    }
+    public String delete2(){
+             ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/borrar.sql");
+        sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
+        return sql;
     }
 
     public ArrayList selectUno(String id) {
-        String select = "SELECT nombreCarrera FROM biblioteca.carrera WHERE idCarrera = "+id+";";
+        String select = this.selectuUno2();
         ArrayList existencia = CONECTOR.ejecutarConsulta(select);
         System.out.println(select);
         return (ArrayList) existencia.get(0); 
+    }
+    public String selectuUno2(){
+             ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/seleccionaruno.sql");
+        sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
+        return sql;
+    
     }
 }

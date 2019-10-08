@@ -1,0 +1,1 @@
+SELECT `idLibro`, `Titulo` ,`Tema_idTema` FROM `biblioteca`.`libro` WHERE `idLibro` = {ID_LIBRO};
