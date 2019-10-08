@@ -31,7 +31,7 @@ public class CarreraTest {
     }
     @Test
     public void testSelectUno(){
-    String esperado = "SELECT nombreCarrera FROM biblioteca.carrera WHERE idCarr era = '{id}';";
+    String esperado = "SELECT nombreCarrera FROM biblioteca.carrera WHERE idCarrera = '{id}';";
     Carrera C = new Carrera();
     C.setNombreCarrera("Desarrollo de Software");
     String resultado = C.selectUno2();

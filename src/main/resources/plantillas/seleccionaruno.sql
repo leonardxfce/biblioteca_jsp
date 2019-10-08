@@ -1,1 +1,1 @@
-SELECT nombreCarrera FROM biblioteca.carrera WHERE idCarr era = '{id}';
+SELECT nombreCarrera FROM biblioteca.carrera WHERE idCarrera = '{id}';
