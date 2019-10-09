@@ -1,11 +1,4 @@
-<%
-    if(session.getAttribute("user") == null){
-        response.sendRedirect("login.jsp");
-    }
-    if(session.getAttribute("type") == null){
-        response.sendRedirect("login.jsp");
-    }
-%>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="amycss.css">
 
     <!-- Custom styles for this template -->
     <link href="css/logo-nav.css" rel="stylesheet">
@@ -28,8 +22,97 @@
 
   <body>
 
-    <!-- Navigation -->
-    <%@include file="nav-bar.jsp" %>
+    <!-- Navigation nav-bar.jsp -->
+    <link href="css/logo-nav.css" rel="stylesheet">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="img/NUEVOLOGO copy.png" class="img">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button class="btn btn-default" type="button" class="colorboton"><a href="index.html">Inicio</a></button>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Prestamo
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="prestar_libro.html">Prestar libro</a></li>
+                    <li><a href="historial_prestamos.html">Historial</a></li>
+                    
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" class="anchura"></li>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Libros
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="cargar_libro.html" >A�adir</a></li>
+                        <li><a href="modificar_libro.html">">Modificar</a></li>
+                        <li><a href="inventario.jsp">Inventario</a></li>
+                    </ul>
+                  </div>
+            </li>
+            <li class="nav-item" class="anchura"></li>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Gestion
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="reportes.jsp">Reportes</a></li>-->
+                        <li><a href="carreras.html">Carreras</a></li>
+                        <li><a href="autores.html">Autores</a></li>
+                        <li><a href="usuario.html">Usuarios</a></li>
+                    </ul>
+                </div>
+            </li>
+                        <li class="nav-item" class="anchura"></li>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorbooton">Bedel
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="reportes.jsp">Reportes</a></li>-->
+                        <li><a href="crear-bedel.html">Crear bedel</a></li>
+                        <li><a href="mi_usuario.html">Mi usuario</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item" class="anchura"></li>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-default" type="button" class="colorboton" 
+                            onclick="window.location.replace('../BibliotecaBootstrap/mi_usuario.html');" >Mi usuario</button>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <a href="lgout.html"><button class="btn btn-default" type="button" class="colorboton">Salir</button>
+                    </a>
+                </div>
+                <script>
+                    function cerrarSesion(){
+                        $.post('ControladorUsuario', {
+                            envio : "verificar;,;invalidate"
+                        });
+                        location.replace("login.html");
+                    }
+                </script>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+                
+    
 
     <!-- Page Content -->
     <div class="container">
@@ -74,7 +157,7 @@
                             onfocus="llenarDatalist('datalistLibro', 'ControladorLibro')"
                             name="atributosPrestamo" onchange="defecto()" aria-describedby="basic-addon">
               <div class="input-group-append">
-              <span class="input-group-text" id="basic-addon"><img id="confirm" src="img/lupa.png" style="width: 20px; height: 20px;"></span>
+              <span class="input-group-text" id="basic-addon"><img id="confirm" src="img/lupa.png" class="tam_imagen"></span>
               </div>
                         <datalist id="datalistLibro"></datalist>
               

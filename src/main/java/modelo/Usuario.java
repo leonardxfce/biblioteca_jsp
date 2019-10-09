@@ -1,5 +1,7 @@
 package modelo;
 
+import util.ConectorDB;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -211,7 +213,8 @@ public class Usuario implements IModelo{
         ArrayList respuesta;
         if(flag == 0){
             String select = "SELECT * FROM `usuario` WHERE `"+campo+"` = "+valor+"";
-            respuesta = CONECTOR.ejecutarConsulta(select);
+            ConectorDB conx = new ConectorDB();
+            respuesta = conx.ejecutarConsulta(select);
             if(respuesta.isEmpty() != true){
                 existe = true;
             }
