@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 */
 public final class ConectorDB {
 
-    private final String UNIFORM_RESOURCE_LOCATION = "jdbc:mysql://localhost/biblioteca";
+    private final String UNIFORM_RESOURCE_LOCATION = "jdbc:sqlite:sample.db";
     private final String USER = "bibliotecario";
     private final String PASSWORD = "ies9024";
 
@@ -38,7 +38,14 @@ public final class ConectorDB {
      * No recibe argumentos/parametros ni inicializa atributos, ejecuta método GenerarBackUp.
      */
     public ConectorDB() {
-        GenerarBackUp();
+        IniciarConexion();
+        crearTablas();
+    }
+
+    private void crearTablas() {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("migraciones/tabla_usuario.sql");
+        ejecutarSentencia(sql);
     }
 
     /**
@@ -46,13 +53,12 @@ public final class ConectorDB {
      */
     public void IniciarConexion(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection(UNIFORM_RESOURCE_LOCATION, USER, PASSWORD);
+            conexion = DriverManager.getConnection(UNIFORM_RESOURCE_LOCATION);
             System.out.println("Conexión.");
         } catch (SQLException e) {
             System.out.println("Conexión: Error.");
             System.out.println("Revisar Contraseña");
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             System.out.println("Clase del Driver no encontrada");
         }     
     }
@@ -63,7 +69,6 @@ public final class ConectorDB {
     * @return ArrayList Lista_completa: Contiene los elementos obtenidos de la consulta SELECT.
     */
     public ArrayList ejecutarConsulta(String Select) {
-        this.IniciarConexion();
         System.out.println(Select);
         ArrayList Lista_completa = new ArrayList();
         ResultSet rs;
@@ -99,20 +104,14 @@ public final class ConectorDB {
      * la cantidad de tuplas afectadas. 0 = Error.
      */
     public int ejecutarSentencia(String Sentencia) {
-        this.IniciarConexion();
         int Existencia_de_registro = 0;
         try {
             Statement sentencia = this.conexion.createStatement();
             Existencia_de_registro = sentencia.executeUpdate(Sentencia);
-
             sentencia.close(); // <- Cierre de sentencia.
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
-        this.CerrarConexion(); // <- Cierre de conexión.
-        
         return Existencia_de_registro;
     }
     
@@ -130,7 +129,6 @@ public final class ConectorDB {
     @Deprecated
     public ResultSet JasperReport(String Select) {
         System.out.println(Select);
-        this.IniciarConexion();
         ResultSet rs = null;
         try {
             Statement sentencia = this.conexion.createStatement();
@@ -152,7 +150,6 @@ public final class ConectorDB {
      */
     public boolean Transaction(String [] params) throws SQLException{
         boolean respuesta;
-        this.IniciarConexion();
         this.conexion.setAutoCommit(false);
         try {
             Statement sentencia = this.conexion.createStatement();
