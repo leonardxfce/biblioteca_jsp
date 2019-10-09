@@ -115,12 +115,12 @@ public class Carrera implements IModelo{
     }
 
     public ArrayList selectUno(String id) {
-        String select = this.selectuUno2();
+        String select = this.selectUno2();
         ArrayList existencia = CONECTOR.ejecutarConsulta(select);
         System.out.println(select);
         return (ArrayList) existencia.get(0); 
     }
-    public String selectuUno2(){
+    public String selectUno2(){
              ManejadorDeArchivos ma = new ManejadorDeArchivos();
         String sql = ma.abrirArchivo("plantillas/seleccionaruno.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 

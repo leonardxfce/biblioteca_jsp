@@ -16,11 +16,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Añadir Libro</title>
+    <title>Aï¿½adir Libro</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
     <!-- Custom styles for this template -->
     <link href="css/logo-nav.css" rel="stylesheet">
 
@@ -70,7 +70,7 @@
     <div class="container"  id="form">
       <div class="row mt-5">
         <div class="col-12">
-          <center><h1>Añadir libro</h1></center>
+          <center><h1>Aï¿½adir libro</h1></center>
         </div>
       </div>
       <div class="row">
@@ -112,7 +112,7 @@
                 <input type="hidden" class="form-control" id="tit-libro">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button" 
-                    data-toggle="modal" data-target="#AgregarAutor">Añadir autor</button>
+                    data-toggle="modal" data-target="#AgregarAutor">Aï¿½adir autor</button>
                 </span>
               </div>
           </div>
@@ -121,7 +121,7 @@
           <div class="col-2"></div>
           <div class="col-6">
             <div class="form-group">
-              <label for="cod-lib">Código libro</label>
+              <label for="cod-lib">Cï¿½digo libro</label>
               <input type="text" class="form-control" id="codLib" name="atributosLibro">
             </div>
           </div>
@@ -141,7 +141,7 @@
                 <input type="hidden" class="form-control" id="tit-libro">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button" 
-                            data-toggle="modal" data-target="#AgregarTema">Añadir tema</button>
+                            data-toggle="modal" data-target="#AgregarTema">Aï¿½adir tema</button>
                 </span>
               </div>
           </div>
@@ -149,7 +149,7 @@
       <div class="row">
         <div class="col-8"></div>
         <div class="col-3">
-            <button class="btn btn-secondary btn-lg " type="button" id="Cargar">Añadir</button>
+            <button class="btn btn-secondary btn-lg " type="button" id="Cargar">Aï¿½adir</button>
         </div>
       </div>
         
@@ -231,8 +231,8 @@
     
     
     
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/ajax.js" 
         onload="llenarSelect('campoUbicaciones','ControladorUbicacion'); 
             llenarSelect('campoTemas','ControladorTema')"></script>
