@@ -10,12 +10,14 @@
     <title>Prestar Libro</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="css/logo-nav.css" rel="stylesheet">
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="js/reportes.js"></script>
+    <link rel="stylesheet" href="amycss.css">
+    
 
   </head>
 
@@ -42,7 +44,6 @@
                   <ul class="dropdown-menu">
                       <li><a href="prestar_libro.html">Prestar libro</a></li>
                       <li><a href="historial_prestamos.html">Historial</a></li>
-                      
                   </ul>
                 </div>
               </li>
@@ -80,7 +81,6 @@
                           <!--<li><a href="reportes.jsp">Reportes</a></li>-->
                           <li><a href="crear-bedel.html">Crear bedel</a></li>
                           <li><a href="mi_usuario.html">Mi usuario</a></li>
-  
                       </ul>
                   </div>
               </li>
@@ -96,20 +96,12 @@
                       <a href="logout.html"><button class="btn btn-default" type="button" class="colorboton">Salir</button>
                       </a>
                   </div>
-                  <script>
-                      function cerrarSesion(){
-                          $.post('ControladorUsuario', {
-                              envio : "verificar;,;invalidate"
-                          });
-                          location.replace("login.html");
-                      }
-                  </script>
+                  <script src="js/funcionesDeLasPainas.js"></script>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-                  
 
     <!-- Page Content -->
     <div class="container">
@@ -133,7 +125,6 @@
             </center>
         </div> 
       </div>
-        
         <!-- Reporte duedores de libros -->
       <div class="row" id='campoSocioContainer' style="display: none">
           <div class="col-2"></div>
@@ -147,7 +138,6 @@
             </div>
           </div>
           <div class="col-3">
-            
           </div>
       </div>
             <div class="row" id="carreraContainer" style="display: none">
@@ -156,7 +146,6 @@
                     <div class="form-group">
                                       <label for="carrera">Carrera</label>
                                       <select  id="carrera" class="form-control" name="filtro_reportes">
-                                          
                                       </select>
                                   </div>
                 </div>
@@ -218,8 +207,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/PopUp.js"></script>
     <script src="js/ajax.js" onload="llenarSelect('carrera','ControladorCarrera')" charset="UTF-8"></script>
     <script>
@@ -229,11 +218,10 @@
             option.setAttribute("value", "0");
             option.text = "Todas";
             select.add(option);
-
         }
     </script>
     <script src="js/verificacion.js"></script>
-    
+
   </body>
 
 </html>
