@@ -2,6 +2,7 @@ package modelo;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import util.ManejadorDeArchivos;
 
 /**
  * Esta clase permite crear un nuevo préstamo, modificar préstamo ya cargado
@@ -153,22 +154,42 @@ public class Prestamo implements IModelo {
      */
     @Override
     public void insert() {
-        String insert = "INSERT INTO `prestamo`"
-                + "(`Socio_idSocio`, `Libro_idlibro`, `numPrestamo`, `Fecha`, `Plazo`, `Estado_idEstado`)\n"
-                + "VALUES\n"
-                + "(" + this.Socio + "," + this.Libro + "," + this.numPrestamo + ",'" + this.Fecha.toString() + "'," + this.Plazo + ",1);";
-        CONECTOR.ejecutarSentencia(insert);
+        String s1 = this.prepareInsert();
+        
+        CONECTOR.ejecutarSentencia(s1);
+    }
+
+    public String prepareInsert() {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/insert_Prestamo.sql");
+        sql = sql.replace("{Socio_idSocio}", Integer.toString(this.Socio));
+        sql = sql.replace("{Libro_idLibro}", Integer.toString(this.Libro));
+        sql = sql.replace("{numPrestamo}", Integer.toString(this.numPrestamo));
+        sql = sql.replace("{Fecha}", this.Fecha.toString());
+        sql = sql.replace("{Plazo}", Integer.toString(this.Plazo));
+        sql = sql.replace("{Estado_idEstado}", Integer.toString(this.Estado));
+        return sql;
     }
 
     /**
      * Este método (update) envía la petición para modificar un préstamo ya
      * existente en la base de datos.
-     * @return 
+     *
+     * @return
      */
-    @Override
+    
+      @Override
     public int update(String identificador) {
-        String update = "UPDATE	`prestamo` SET `Estado_idEstado` = 4 WHERE `numPrestamo` =" + identificador + ";";
-        return CONECTOR.ejecutarSentencia(update);
+        String up = this.prepareUpdate(identificador);
+        return CONECTOR.ejecutarSentencia(up);
+    }
+
+    public String prepareUpdate(String identificador) {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/update_Prestamo.sql");
+        sql = sql.replace("{Estado_idEstado}", Integer.toString(this.Estado));
+        sql = sql.replace("{identificador}", identificador);
+        return sql;
     }
 
     /**
@@ -180,15 +201,15 @@ public class Prestamo implements IModelo {
      */
     @Override
     public ArrayList selectTodos() {
-        String select = "SELECT prestamo.numPrestamo, libro.Titulo, socio.DNI,\n" +
-                        "socio.Nombre, socio.Apellido, carrera.nombreCarrera, prestamo.Plazo, prestamo.Fecha,\n" +
-                        "date_add(Fecha,INTERVAL Plazo DAY),estado.Estado\n" +
-                        "FROM\n" +
-                        "prestamo\n" +
-                        "INNER JOIN libro ON prestamo.Libro_idlibro = libro.idlibro\n" +
-                        "JOIN socio ON prestamo.Socio_idSocio = socio.idSocio\n" +
-                        "JOIN estado ON prestamo.Estado_idEstado = estado.idEstado\n" +
-                        "JOIN carrera ON socio.Carrera_idCarrera = carrera.idCarrera;";
+        String select = "SELECT prestamo.numPrestamo, libro.Titulo, socio.DNI,\n"
+                + "socio.Nombre, socio.Apellido, carrera.nombreCarrera, prestamo.Plazo, prestamo.Fecha,\n"
+                + "date_add(Fecha,INTERVAL Plazo DAY),estado.Estado\n"
+                + "FROM\n"
+                + "prestamo\n"
+                + "INNER JOIN libro ON prestamo.Libro_idlibro = libro.idlibro\n"
+                + "JOIN socio ON prestamo.Socio_idSocio = socio.idSocio\n"
+                + "JOIN estado ON prestamo.Estado_idEstado = estado.idEstado\n"
+                + "JOIN carrera ON socio.Carrera_idCarrera = carrera.idCarrera;";
         return CONECTOR.ejecutarConsulta(select);
     }
 
@@ -218,40 +239,40 @@ public class Prestamo implements IModelo {
      */
     public int ultimoNumPrestamo() {
         String select = "SELECT max(numPrestamo) FROM `prestamo`;";
-        if(((ArrayList) CONECTOR.ejecutarConsulta(select).get(0)).get(0) == null){
+        if (((ArrayList) CONECTOR.ejecutarConsulta(select).get(0)).get(0) == null) {
             return 0;
         } else {
             return Integer.parseInt(((ArrayList) CONECTOR.ejecutarConsulta(select).get(0)).get(0).toString());
         }
     }
 
-    public boolean comprobarDeuda(String id){
+    public boolean comprobarDeuda(String id) {
         boolean existe = false;
-        String select = "SELECT socio_idSocio FROM usuario where idUsuario = "+id;
+        String select = "SELECT socio_idSocio FROM usuario where idUsuario = " + id;
         ArrayList resp = CONECTOR.ejecutarConsulta(select);
         System.out.println(resp.get(0));
-        if(((ArrayList) resp.get(0)).get(0) == null){
+        if (((ArrayList) resp.get(0)).get(0) == null) {
             existe = false;
         } else {
-            select = "SELECT * FROM `prestamo` WHERE Socio_idSocio = "+((ArrayList) resp.get(0)).get(0).toString()+" AND Estado_idEstado != 4";
+            select = "SELECT * FROM `prestamo` WHERE Socio_idSocio = " + ((ArrayList) resp.get(0)).get(0).toString() + " AND Estado_idEstado != 4";
             ArrayList respuesta = CONECTOR.ejecutarConsulta(select);
-            if(respuesta.isEmpty() != true){
+            if (respuesta.isEmpty() != true) {
                 existe = true;
             }
         }
-        return existe; 
+        return existe;
     }
-    
-    public ArrayList comprobarDeudaConInfo(String id){
-        String select = "SELECT prestamo.Socio_idSocio, libro.Titulo, prestamo.Fecha \n" +
-                        "FROM biblioteca.prestamo \n" +
-                        "INNER JOIN libro \n" +
-                        "ON prestamo.Libro_idlibro = libro.idlibro\n" +
-                        "WHERE Socio_idSocio = "+id+" AND Estado_idEstado != 4;";
+
+    public ArrayList comprobarDeudaConInfo(String id) {
+        String select = "SELECT prestamo.Socio_idSocio, libro.Titulo, prestamo.Fecha \n"
+                + "FROM biblioteca.prestamo \n"
+                + "INNER JOIN libro \n"
+                + "ON prestamo.Libro_idlibro = libro.idlibro\n"
+                + "WHERE Socio_idSocio = " + id + " AND Estado_idEstado != 4;";
         ArrayList lista = CONECTOR.ejecutarConsulta(select);
-        return lista; 
+        return lista;
     }
-            
+
     @Override
     public int comprobarExistenciaDeRegistro(String[] data) {
         throw new UnsupportedOperationException("No soportado");

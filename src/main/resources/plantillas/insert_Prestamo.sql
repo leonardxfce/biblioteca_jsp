@@ -1,0 +1,1 @@
+INSERT INTO `prestamo`(`Socio_idSocio`,`Libro_idlibro`,`numPrestamo`,`Fecha`,`Plazo`,`Estado_idEstado`)VALUES({Socio_idSocio},{Libro_idLibro},{numPrestamo},'{Fecha}',{Plazo},{Estado_idEstado});
