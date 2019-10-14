@@ -152,13 +152,6 @@ public class Prestamo implements IModelo {
      * Este método (insert) envía la petición para insertar un nuevo préstamo en
      * la base de datos.
      */
-    @Override
-    public void insert() {
-        String s1 = this.prepareInsert();
-        
-        CONECTOR.ejecutarSentencia(s1);
-    }
-
     public String prepareInsert() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
         String sql = ma.abrirArchivo("plantillas/insert_Prestamo.sql");
@@ -171,25 +164,31 @@ public class Prestamo implements IModelo {
         return sql;
     }
 
+    @Override
+    public void insert() {
+        String s1 = this.prepareInsert();
+
+        CONECTOR.ejecutarSentencia(s1);
+    }
+
     /**
      * Este método (update) envía la petición para modificar un préstamo ya
      * existente en la base de datos.
      *
      * @return
      */
-    
-      @Override
-    public int update(String identificador) {
-        String up = this.prepareUpdate(identificador);
-        return CONECTOR.ejecutarSentencia(up);
-    }
-
     public String prepareUpdate(String identificador) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
         String sql = ma.abrirArchivo("plantillas/update_Prestamo.sql");
         sql = sql.replace("{Estado_idEstado}", Integer.toString(this.Estado));
         sql = sql.replace("{identificador}", identificador);
         return sql;
+    }
+
+    @Override
+    public int update(String identificador) {
+        String up = this.prepareUpdate(identificador);
+        return CONECTOR.ejecutarSentencia(up);
     }
 
     /**
@@ -199,17 +198,16 @@ public class Prestamo implements IModelo {
      * @return (se retornan todos los préstamos obtenidos desde la base de
      * datos).
      */
+    public String prepareSelectTodos() {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/selectTodos_prestamo.sql");
+        return sql;
+
+    }
+
     @Override
     public ArrayList selectTodos() {
-        String select = "SELECT prestamo.numPrestamo, libro.Titulo, socio.DNI,\n"
-                + "socio.Nombre, socio.Apellido, carrera.nombreCarrera, prestamo.Plazo, prestamo.Fecha,\n"
-                + "date_add(Fecha,INTERVAL Plazo DAY),estado.Estado\n"
-                + "FROM\n"
-                + "prestamo\n"
-                + "INNER JOIN libro ON prestamo.Libro_idlibro = libro.idlibro\n"
-                + "JOIN socio ON prestamo.Socio_idSocio = socio.idSocio\n"
-                + "JOIN estado ON prestamo.Estado_idEstado = estado.idEstado\n"
-                + "JOIN carrera ON socio.Carrera_idCarrera = carrera.idCarrera;";
+		String select = this.prepareSelectTodos();
         return CONECTOR.ejecutarConsulta(select);
     }
 
@@ -222,11 +220,15 @@ public class Prestamo implements IModelo {
      * @return (se retorna la cantidad de los préstamos existentes en la base de
      * datos a partir del id ingresado).
      */
+    public String prepareContarPrestamos(String idLibro) {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/contar_prestamos.sql");
+        sql = sql.replace("{ID_LIBRO}", idLibro);
+        return sql;
+    }
+
     public int contarPrestamos(String idlibro) {
-        String select = "SELECT count(*) "
-                + "FROM `prestamo` "
-                + "WHERE `Libro_idLibro` = " + idlibro + " "
-                + "AND (`Estado_idEstado` = 1 OR Estado_idEstado = 2);";
+        String select = this.prepareContarPrestamos(idlibro);
         ArrayList cantidadLibros = CONECTOR.ejecutarConsulta(select);
         return Integer.parseInt(((ArrayList) cantidadLibros.get(0)).get(0).toString());
     }
@@ -237,20 +239,29 @@ public class Prestamo implements IModelo {
      *
      * @return (int) Numero del ultimo prestamo regitrado;
      */
+    public String prepareUltimoPrestamo() {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/select_ultimoPrestamo.sql");
+        return sql;
+    }
+
     public int ultimoNumPrestamo() {
-        String select = "SELECT max(numPrestamo) FROM `prestamo`;";
+        String select = this.prepareUltimoPrestamo();
         if (((ArrayList) CONECTOR.ejecutarConsulta(select).get(0)).get(0) == null) {
             return 0;
         } else {
             return Integer.parseInt(((ArrayList) CONECTOR.ejecutarConsulta(select).get(0)).get(0).toString());
         }
     }
+   
+  
 
     public boolean comprobarDeuda(String id) {
         boolean existe = false;
         String select = "SELECT socio_idSocio FROM usuario where idUsuario = " + id;
         ArrayList resp = CONECTOR.ejecutarConsulta(select);
         System.out.println(resp.get(0));
+        
         if (((ArrayList) resp.get(0)).get(0) == null) {
             existe = false;
         } else {
@@ -263,13 +274,16 @@ public class Prestamo implements IModelo {
         return existe;
     }
 
+    public String prepareComprobarDeudaConInfo(String id) {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/comprobarDeudaConInfo_prestamos.sql");
+        sql = sql.replace("{Socio_idSocio}", id);
+        return sql;
+    }
+
     public ArrayList comprobarDeudaConInfo(String id) {
-        String select = "SELECT prestamo.Socio_idSocio, libro.Titulo, prestamo.Fecha \n"
-                + "FROM biblioteca.prestamo \n"
-                + "INNER JOIN libro \n"
-                + "ON prestamo.Libro_idlibro = libro.idlibro\n"
-                + "WHERE Socio_idSocio = " + id + " AND Estado_idEstado != 4;";
-        ArrayList lista = CONECTOR.ejecutarConsulta(select);
+		String select ="SELECT prestamo.Socio_idSocio, libro.Titulo, prestamo.Fecha FROM biblioteca.prestamo INNER JOIN libro ON prestamo.Libro_idlibro = libro.idlibro WHERE Socio_idSocio = " +id+ " AND Estado_idEstado != 4;";
+		ArrayList lista = CONECTOR.ejecutarConsulta(select);
         return lista;
     }
 
