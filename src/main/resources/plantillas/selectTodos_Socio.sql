@@ -1,0 +1,1 @@
+SELECT `idSocio`, concat(`Nombre`,' ',`Apellido`,' - DNI: ',`DNI`) AS `Socio` FROM `socio` WHERE `estado_actividad` = 0;
