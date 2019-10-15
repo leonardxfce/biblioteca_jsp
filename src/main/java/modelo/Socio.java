@@ -127,12 +127,7 @@ public class  Socio implements IModelo {
         }
 
     } 
-    public String prepararInsertUsuario(){
-        ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/nuevoUsuario.sql");
-        return
-    }
-
+   
     public String prepararInsert() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
         String sql = ma.abrirArchivo("plantillas/nuevoSocio.sql");
@@ -143,10 +138,7 @@ public class  Socio implements IModelo {
         return sql;
     }
     public ArrayList devolverUsuario(String dni){
-        String select = "SELECT usuario.user, usuario.pass from usuario\n" +
-        "inner join socio\n" +
-        "on usuario.socio_idSocio = socio.idSocio\n" +
-        "where socio.DNI = "+dni;
+        String select = this.prepararDevolverUsuario(dni);
         return CONECTOR.ejecutarConsulta(select);
     }
     public String prepararDevolverUsuario(String dni){
@@ -177,8 +169,7 @@ public class  Socio implements IModelo {
      */
     @Override
     public ArrayList selectTodos() {
-        String select = "SELECT `idSocio`, concat(`Nombre`,' ',`Apellido`,' - DNI: ',`DNI`) AS `Socio` FROM `socio` "
-                + "WHERE `estado_actividad` = 0;";
+        String select = this.prepararSelectTodos();
         return CONECTOR.ejecutarConsulta(select);
     }
     public String prepararSelectTodos(){
