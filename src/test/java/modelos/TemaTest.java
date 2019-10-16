@@ -14,4 +14,21 @@ public class TemaTest {
         assertEquals(esperado,resultado);
     }
     
+    @Test
+    public void testSelectTodos(){
+        Tema t = new Tema();
+        t.setNombreTema("Ficción");
+        String resultado = t.getNombreTema();
+        String esperado = "Ficción";
+        assertEquals(esperado,resultado);
+    }
+    
+    @Test
+    public void testInsert(){
+        Tema t = new Tema();
+        t.setNombreTema("Ficción");
+        String resultado = t.getNombreTema();
+        String esperado = "Ficción";
+        assertEquals(esperado,resultado);
+    }
 }
