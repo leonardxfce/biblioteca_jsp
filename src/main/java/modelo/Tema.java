@@ -68,22 +68,19 @@ public class Tema implements IModelo {
     }
 
     @Override
-    public int update(String identificador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int comprobarExistenciaDeRegistro(String[] data) {
         String lo = "SELECT count(*) FROM tema WHERE NombreTema = '" + data[1] + "';";
         return Integer.parseInt(((ArrayList) CONECTOR.ejecutarConsulta(lo).get(0)).get(0).toString());
     }
 
     @Override
-    public int delete(int id) {
+    public int update(String identificador) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String NombreTema() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public int delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
+
 }

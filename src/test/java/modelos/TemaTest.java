@@ -1,6 +1,7 @@
 package modelos;
 import org.junit.Test;
 import modelo.Tema;
+import static org.junit.Assert.assertEquals;
 
 public class TemaTest {
     
@@ -8,13 +9,9 @@ public class TemaTest {
     public void testNombreTema(){
         Tema t = new Tema();
         t.setNombreTema("Ficción");
-        String resultado = t.NombreTema();
+        String resultado = t.getNombreTema();
         String esperado = "Ficción";
         assertEquals(esperado,resultado);
-    }
-
-    private void assertEquals(String esperado, String resultado) {
-     throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
