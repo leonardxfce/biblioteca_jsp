@@ -1,0 +1,1 @@
+SELECT prestamo.Socio_idSocio, libro.Titulo, prestamo.Fecha FROM biblioteca.prestamo INNER JOIN libro ON prestamo.Libro_idlibro = libro.idlibro WHERE Socio_idSocio = {Socio_idSocio} AND Estado_idEstado != 4;
