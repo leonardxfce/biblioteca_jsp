@@ -7,7 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>A�adir Libro</title>
+    <title>Añadir Libro</title>
+    <meta charset="utf-8">
 
    </head>
 
@@ -29,7 +30,7 @@
               </li>
               <li class="nav-item">
                 <div class="dropdown">
-                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Prestamo
+                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Préstamo
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
                       <li><a href="prestar_libro.html">Prestar libro</a></li>
@@ -44,7 +45,7 @@
                       <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Libros
                       <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                          <li><a href="cargar_libro.html" >A�adir</a></li>
+                          <li><a href="cargar_libro.html" >Añadir</a></li>
                           <li><a href="modificar_libro.html">">Modificar</a></li>
                           <li><a href="inventario.jsp">Inventario</a></li>
                       </ul>
@@ -53,7 +54,7 @@
               <li class="nav-item" class="anchura"></li>
               <li class="nav-item">
                   <div class="dropdown">
-                      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Gestion
+                      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" class="colorboton">Gestión
                       <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                           <!--<li><a href="reportes.jsp">Reportes</a></li>-->
@@ -99,14 +100,14 @@
     <div class="container"  id="form">
       <div class="row mt-5">
         <div class="col-12">
-          <center><h1>A�adir libro</h1></center>
+          <center><h1>Añadir libro</h1></center>
         </div>
       </div>
       <div class="row">
           <div class="col-2"></div>
           <div class="col-6">
             <div class="form-group">
-              <label for="tit-libro">Titulo del libro</label>
+              <label for="tit-libro">Título del libro</label>
               <input type="text" class="form-control" name="atributosLibro">
               <datalist id="datalistAutores"></datalist>
             </div>
@@ -141,7 +142,7 @@
                 <input type="hidden" class="form-control" id="tit-libro">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button" 
-                    data-toggle="modal" data-target="#AgregarAutor">A�adir autor</button>
+                    data-toggle="modal" data-target="#AgregarAutor">Añadir autor</button>
                 </span>
               </div>
           </div>
@@ -150,7 +151,7 @@
           <div class="col-2"></div>
           <div class="col-6">
             <div class="form-group">
-              <label for="cod-lib">C�digo libro</label>
+              <label for="cod-lib">Código libro</label>
               <input type="text" class="form-control" id="codLib" name="atributosLibro">
             </div>
           </div>
@@ -170,7 +171,7 @@
                 <input type="hidden" class="form-control" id="tit-libro">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button" 
-                            data-toggle="modal" data-target="#AgregarTema">A�adir tema</button>
+                            data-toggle="modal" data-target="#AgregarTema">Añadir tema</button>
                 </span>
               </div>
           </div>
@@ -178,7 +179,7 @@
       <div class="row">
         <div class="col-8"></div>
         <div class="col-3">
-            <button class="btn btn-secondary btn-lg " type="button" id="Cargar">A�adir</button>
+            <button class="btn btn-secondary btn-lg " type="button" id="Cargar">Añadir</button>
         </div>
       </div>
         

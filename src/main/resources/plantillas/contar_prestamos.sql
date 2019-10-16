@@ -1,0 +1,1 @@
+SELECT count(*) FROM `prestamo` WHERE `Libro_idLibro` = {ID_LIBRO} AND (`Estado_idEstado` = 1 OR Estado_idEstado = 2);
