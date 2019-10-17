@@ -183,10 +183,17 @@ public class  Socio implements IModelo {
         String lo = "SELECT count(*) FROM socio WHERE DNI = " + data[4] + ";";
         return Integer.parseInt(((ArrayList) CONECTOR.ejecutarConsulta(lo).get(0)).get(0).toString());
     }
+   
 
     public void altaUsuario(String dni){
-        String update = "UPDATE socio INNER JOIN usuario ON socio.idSocio = usuario.socio_idSocio SET socio.estado_actividad = 0, usuario.estado_actividad = 0 WHERE socio.DNI = "+dni;
+        String update = this.prepararAltaUsuario(dni);
         CONECTOR.ejecutarSentencia(update);
+    }
+    public String prepararAltaUsuario(String dni){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/altaUsuario.sql");
+        sql= sql.replace("{dni}",dni);
+        return sql;
     }
     
     @Override

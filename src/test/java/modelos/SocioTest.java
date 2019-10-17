@@ -60,6 +60,14 @@ public class SocioTest {
          assertEquals(esperado, resultado);
      }
 
+     @Test
+     public void prepararAltaUsuario(){
+         Socio socio = new Socio();
+         String esperado = "UPDATE socio INNER JOIN usuario ON socio.idSocio = usuario.socio_idSocio SET socio.estado_actividad = 0, usuario.estado_actividad = 0 WHERE socio.DNI = 42084417;";
+         String resultado = socio.prepararAltaUsuario("42084417");
+         assertEquals(esperado, resultado);
+     }
+
      
 }
 
