@@ -11,9 +11,9 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 
-/**
+
+/*
 * Esta clase permite guardar un nuevo socio u obtener los datos ya cargados de un socio existente.
 * @author IES 9-024 LAVALLE.
 * @version 2.018.
