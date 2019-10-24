@@ -1,5 +1,7 @@
 package modelo;
 
+import util.ManejadorDeArchivos;
+
 import java.sql.SQLException;
 import java.text.Normalizer;
 import java.time.LocalDateTime;
@@ -9,12 +11,14 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
+
+
+/*
 * Esta clase permite guardar un nuevo socio u obtener los datos ya cargados de un socio existente.
 * @author IES 9-024 LAVALLE.
 * @version 2.018.
 */
-public class Socio implements IModelo {
+public class  Socio implements IModelo {
 
     private String Nombre;
     private String Apellido;
@@ -91,6 +95,7 @@ public class Socio implements IModelo {
     /**
      * Este método (insert) envía la petición para insertar un nuevo socio en la base de datos.
      */
+
     @Override
     public void insert() {
         LocalDateTime ldt = LocalDateTime.now();
@@ -107,14 +112,12 @@ public class Socio implements IModelo {
             existe = comprobarExisteciaDeUsuario(userTemp);
         }
 
-        String insert = "INSERT INTO `biblioteca`.`socio`"
-                + "	(`Carrera_idCarrera`,`Nombre`,`Apellido`, `DNI`, `estado_actividad`)"
-                + "VALUES"
-                + "	(" + this.Carrera + ",'" + this.Nombre + "', '" + this.Apellido + "'," + this.DNI + ", 0);";
+
+        String insert = this.prepararInsert();
         
         String insertUsuario = "INSERT INTO `usuario`(`user`, `pass`, `tipoUsuario`, `socio_idSocio`, "
-                + "`estado_actividad`, `ultimo_ingreso`) VALUES ('"+userTemp+"', '"+(numAleatorio + 100000)+"', 2, (SELECT last_insert_id())"
-                + ", 0, '"+DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(ldt)+"');";
+        + "`estado_actividad`, `ultimo_ingreso`) VALUES ('"+userTemp+"', '"+(numAleatorio + 100000)+"', 2, (SELECT last_insert_id())"
+        + ", 0, '"+DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(ldt)+"');";
         
         String [] params = {insert, insertUsuario}; 
         try {
@@ -122,14 +125,27 @@ public class Socio implements IModelo {
         } catch (SQLException ex) {
             Logger.getLogger(Socio.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    } 
+   
+    public String prepararInsert() {
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/nuevoSocio.sql");
+        sql = sql.replace("{CARRERA_IDCARRERA}",Integer.toString(this.Carrera));
+        sql = sql.replace("{NOMBRE}", this.Nombre);
+        sql = sql.replace("{APELLIDO}", this.Apellido);
+        sql = sql.replace("{DNI}",Integer.toString(this.DNI));
+        return sql;
     }
-    
     public ArrayList devolverUsuario(String dni){
-        String select = "SELECT usuario.user, usuario.pass from usuario\n" +
-        "inner join socio\n" +
-        "on usuario.socio_idSocio = socio.idSocio\n" +
-        "where socio.DNI = "+dni;
+        String select = this.prepararDevolverUsuario(dni);
         return CONECTOR.ejecutarConsulta(select);
+    }
+    public String prepararDevolverUsuario(String dni){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/devolverUsuario.sql");
+        sql.replace("{dni}",Integer.toString(this.DNI));
+      return sql;
     }
     
     
@@ -138,7 +154,7 @@ public class Socio implements IModelo {
         ArrayList existencia = CONECTOR.ejecutarConsulta(sql);
         return !existencia.isEmpty();
     }
-
+     
     /**
      * Este método (update) envía la petición para modificar un socio ya existente en la base de datos.
      */
@@ -153,9 +169,13 @@ public class Socio implements IModelo {
      */
     @Override
     public ArrayList selectTodos() {
-        String select = "SELECT `idSocio`, concat(`Nombre`,' ',`Apellido`,' - DNI: ',`DNI`) AS `Socio` FROM `socio` "
-                + "WHERE `estado_actividad` = 0;";
+        String select = this.prepararSelectTodos();
         return CONECTOR.ejecutarConsulta(select);
+    }
+    public String prepararSelectTodos(){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/selectTodos_Socio.sql");
+        return sql;
     }
 
     @Override
@@ -163,10 +183,17 @@ public class Socio implements IModelo {
         String lo = "SELECT count(*) FROM socio WHERE DNI = " + data[4] + ";";
         return Integer.parseInt(((ArrayList) CONECTOR.ejecutarConsulta(lo).get(0)).get(0).toString());
     }
+   
 
     public void altaUsuario(String dni){
-        String update = "UPDATE socio INNER JOIN usuario ON socio.idSocio = usuario.socio_idSocio SET socio.estado_actividad = 0, usuario.estado_actividad = 0 WHERE socio.DNI = "+dni;
+        String update = this.prepararAltaUsuario(dni);
         CONECTOR.ejecutarSentencia(update);
+    }
+    public String prepararAltaUsuario(String dni){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/altaUsuario.sql");
+        sql= sql.replace("{dni}",dni);
+        return sql;
     }
     
     @Override

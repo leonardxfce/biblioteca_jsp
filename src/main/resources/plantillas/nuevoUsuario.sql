@@ -1,0 +1,1 @@
+INSERT INTO `usuario`(`user`, `pass`, `tipoUsuario`, `socio_idSocio`, `estado_actividad`, `ultimo_ingreso`) VALUES ('{usuario}',{})
