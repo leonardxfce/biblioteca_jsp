@@ -1,0 +1,1 @@
+INSERT INTO `biblioteca`.`socio` (`Carrera_idCarrera`,`Nombre`,`Apellido`, `DNI`, `estado_actividad`) VALUES ({CARRERA_IDCARRERA}, '{NOMBRE}', '{APELLIDO}', '{DNI}', 0);
