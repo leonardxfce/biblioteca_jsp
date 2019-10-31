@@ -1,0 +1,1 @@
+UPDATE `usuario` SET `user`= 'user', `pass`= 'pass', `nombre`= 'nombre', `apellido`= 'apellido', `dni`= DNI WHERE `idUsuario` = identificador;

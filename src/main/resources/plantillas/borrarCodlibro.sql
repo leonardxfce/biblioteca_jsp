@@ -1,0 +1,1 @@
+DELETE FROM `biblioteca`.`codlibro` WHERE `codLibro` = `{CODLIBRO}`;

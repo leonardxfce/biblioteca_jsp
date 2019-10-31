@@ -1,0 +1,1 @@
+SELECT * FROM `usuario` WHERE `user` = 'user' AND `pass` = 'pass';
