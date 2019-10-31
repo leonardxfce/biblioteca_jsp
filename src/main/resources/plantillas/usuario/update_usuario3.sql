@@ -1,0 +1,1 @@
+UPDATE `socio` SET `Nombre`= 'nombre', `Apellido`= 'apellido', `DNI`= DNI WHERE idSocio = idSocio;

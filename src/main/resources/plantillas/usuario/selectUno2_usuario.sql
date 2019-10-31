@@ -1,0 +1,1 @@
+SELECT usuario.user, usuario.pass, socio.Nombre, socio.Apellido, socio.DNI, usuario.socio_idSocio FROM `usuario` JOIN socio ON usuario.socio_idSocio = socio.idSocio WHERE usuario.idUsuario = id;
