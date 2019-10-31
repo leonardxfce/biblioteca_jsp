@@ -1,0 +1,1 @@
+SELECT usuario.idUsuario, usuario.user, usuario.pass, socio.Nombre, socio.Apellido, socio.DNI, usuario.ultimo_ingreso FROM `usuario` JOIN socio ON usuario.socio_idSocio = socio.idSocio WHERE `tipoUsuario` = 2 AND usuario.estado_actividad = 0;

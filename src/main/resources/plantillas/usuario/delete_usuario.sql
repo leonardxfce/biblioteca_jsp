@@ -1,0 +1,1 @@
+SELECT socio_idSocio FROM usuario where idUsuario = id;

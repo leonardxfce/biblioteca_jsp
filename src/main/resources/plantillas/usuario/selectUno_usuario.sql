@@ -1,0 +1,1 @@
+SELECT `user`, `pass`, `nombre`, `apellido`, `dni`, `socio_idSocio` FROM `usuario` WHERE `idUsuario` = id;

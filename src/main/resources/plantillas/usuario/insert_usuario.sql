@@ -1,0 +1,1 @@
+INSERT INTO `usuario`(`user`, `pass`, `nombre`, `apellido`, `dni`, `tipoUsuario`, `estado_actividad`) VALUES ('user', 'pass', 'nombre', 'apellido', dni, 1, 0);

@@ -71,7 +71,7 @@ public class Autor implements IModelo {
 
     public String prepararInsert() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/nuevoAutor.sql");
+        String sql = ma.abrirArchivo("plantillas/autor/nuevoAutor.sql");
         sql = sql.replace("{Nombre}", this.Nombre);
         sql = sql.replace("{Apellido}", this.Apellido);
         return sql;
@@ -94,7 +94,7 @@ public class Autor implements IModelo {
 
     public String prepararSelectTodos() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/selectTodos_autor.sql");
+        String sql = ma.abrirArchivo("plantillas/autor/selectTodos_autor.sql");
         return sql;
     }
 
@@ -113,7 +113,7 @@ public class Autor implements IModelo {
 
     public String prepararUpdate(String identificador) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/modificarAutor.sql");
+        String sql = ma.abrirArchivo("plantillas/autor/modificarAutor.sql");
         sql = sql.replace("{Nombre}", this.Nombre);
         sql = sql.replace("{Apellido}", this.Apellido);
         sql = sql.replace("{idAutor}", identificador);
@@ -141,7 +141,7 @@ public class Autor implements IModelo {
 
     public String prepararComprobarExistenciaDeRegistro(String[] data) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/comprobarSiExisteAutor.sql");
+        String sql = ma.abrirArchivo("plantillas/autor/comprobarSiExisteAutor.sql");
         sql = sql.replace("{Nombre}", data[1]);
         sql = sql.replace("{Apellido}", data[2]);
         return sql;
@@ -162,7 +162,7 @@ public class Autor implements IModelo {
 
     public String prepararDelete(int id) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/borrarAutor.sql");
+        String sql = ma.abrirArchivo("plantillas/autor/borrarAutor.sql");
         sql = sql.replace("{idAutor}", Integer.toString(id));
         return sql;
     }
@@ -181,7 +181,7 @@ public class Autor implements IModelo {
 
     public String prepararSelectUno(String id) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/buscarAutorPorID.sql");
+        String sql = ma.abrirArchivo("plantillas/autor/buscarAutorPorID.sql");
         sql = sql.replace("{idAutor}", id);
         return sql;
     }
