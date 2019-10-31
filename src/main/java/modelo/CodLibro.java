@@ -1,5 +1,7 @@
 package modelo;
 
+import util.ManejadorDeArchivos;
+
 import java.util.ArrayList;
 
 /**
@@ -36,10 +38,17 @@ public class CodLibro implements IModelo {
         this.idlibro = idlibro;
     }
 
+    public String prepararInsert(){
+        ManejadorDeArchivos ma = new  ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/nuevo_codlibro.sql");
+        sql = sql.replace("{COD_LIBRO}", this.codlibro);
+        return sql;
+    }
+
     @Override
     public void insert() {
-        String lo = "INSERT INTO codLibro VALUES ('" + this.codlibro + "'," + this.idlibro + ");";
-        CONECTOR.ejecutarSentencia(lo);
+        String insert = this.prepararInsert();
+        CONECTOR.ejecutarSentencia(insert);
     }
 
     /**
@@ -88,9 +97,17 @@ public class CodLibro implements IModelo {
      * @return Verdadero si el codigo existe en la base de datos Falso si el
      * codigo es nuevo
      */
+    
+    public String prepararComprobarCodigo(String codigo){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/comprobarCodlibro.sql");
+        sql = sql.replace("{CODLIBRO}", codigo);
+        return sql;
+    }
+    
     public boolean comprobarCodigo(String codigo) {
-        String lo = "Select codLibro FROM codLibro WHERE codLibro.codLibro = '" + codigo + "';";
-        ArrayList existencia = CONECTOR.ejecutarConsulta(lo);
+        String consulta = prepararComprobarCodigo(codigo);
+        ArrayList existencia = CONECTOR.ejecutarConsulta(consulta);
         if (existencia.isEmpty()) {
             return false;
         } else {
@@ -118,10 +135,17 @@ public class CodLibro implements IModelo {
         return 0;
     }
     
+
+    public String prepararBorrarCodigo(String codlib){
+        ManejadorDeArchivos ma = new  ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/borrarCodlibro.sql");
+        sql = sql.replace("{CODLIBRO}", codlib);
+        return sql;
+    }
+
     public void borrarCodigo(String codlib){
-        String delete = "DELETE FROM `codlibro` WHERE `codLibro` = '"+codlib+"';";
-        System.out.println(delete);
-        CONECTOR.ejecutarSentencia(delete);
+        String borrarCodigo = this.prepararBorrarCodigo(codlib);
+        CONECTOR.ejecutarSentencia(borrarCodigo);
     }
     
     public boolean comprobarExistencia(String id) {
@@ -134,8 +158,15 @@ public class CodLibro implements IModelo {
         }
     }
     
+    public String prepararSelectUno(String id){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/selectUnoCodlibro.sql");
+        sql = sql.replace("{ID_CODLIBRO}", id);
+        return sql;
+    }
+
     public ArrayList selectUno(String id){
-        String consulta = "SELECT `codLibro` FROM `codlibro` WHERE `idlibro` = "+id;
+        String consulta = prepararSelectUno(id);
         return CONECTOR.ejecutarConsulta(consulta);
     }
 }

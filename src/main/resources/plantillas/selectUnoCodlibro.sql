@@ -1,0 +1,1 @@
+SELECT `codlibro` FROM `codlibro` WHERE `idlibro` = `{ID_CODLIBRO}`;
