@@ -6,7 +6,7 @@
 
 body {
   padding-top: 54px;
-  background-image: url('../img/textura.jpg');
+  background-image: url('https://github.com/leonardxfce/biblioteca_jsp/blob/master/src/main/webapp/img/textura.jpg?raw=true');
 }
 
 .dropdown-menu li a{
