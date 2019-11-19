@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static modelo.IModelo.CONECTOR;
+import util.ManejadorDeArchivos;
 
 /**
 * Esta clase tiene funciones para dos tipos de usuarios.<br>
@@ -115,17 +116,24 @@ public class Usuario implements IModelo{
     }
     
     public ArrayList selectUsuario() {
-        String select = "SELECT * FROM `usuario` WHERE `user` = '"+this.user+"' AND `pass` = '"+this.pass+"';";
+        String select = this.selectUsuario2();
         return CONECTOR.ejecutarConsulta(select);
+    }
+    public String selectUsuario2(){
+          ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/seleccionar_usuario.sql");
+        return sql;
     }
 
     @Override
     public void insert() {
-        String insert = "INSERT INTO `usuario`(`user`, `pass`, `nombre`, `apellido`, "
-                + "`dni`, `tipoUsuario`,`estado_actividad`) "
-                + "VALUES ('"+this.user+"', '"+this.pass+"', '"+this.nombre+"', '"+this.apellido+"', "
-                + ""+this.DNI+", 1, 0)";
+        String insert = this.insert2();
         CONECTOR.ejecutarSentencia(insert);
+    }
+    public String insert2(){
+         ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/insert_usuario.sql");
+        return sql;
     }
 
     @Override
@@ -136,43 +144,52 @@ public class Usuario implements IModelo{
     public int updateUsuario(String identificador, String tipoUsuario, String idSocio) {
         String update = "";
         if(tipoUsuario.equals("vedel")){
-                update= "UPDATE `usuario` SET `user`= '"+this.user+"', `pass`= '"+this.pass+"', "
-                + "`nombre`= '"+this.nombre+"', "
-                + "`apellido`= '"+this.apellido+"', `dni`= "+this.DNI+" WHERE `idUsuario` = "+identificador+";";
+                update= this.updateUsuario1();
                 
         } else {
-            CONECTOR.ejecutarSentencia("UPDATE `usuario` SET `user`= '"+this.user+"', `pass`= '"+this.pass+"' WHERE `idUsuario` = "+identificador+";");
-            update= "UPDATE `socio` SET `Nombre`= '"+this.nombre+"',`Apellido`= '"+this.apellido+"',"
-                    + "`DNI`="+this.DNI+" WHERE idSocio = "+idSocio;
-            
-            
+            CONECTOR.ejecutarSentencia("plantillas/usuario/update_usuario2.sql");
+            update=  this.updateUsuario2();
         }
 
         System.out.println(update);
         return CONECTOR.ejecutarSentencia(update);
     }
+    public String updateUsuario1(){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/update_usuario.sql");
+        return sql;
+    }
+    public String updateUsuario2(){
+          ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/update_usuario3.sql");
+        return sql;
+    }
 
     @Override
     public ArrayList selectTodos() {
         String select;
-        select = "SELECT usuario.idUsuario, usuario.user, usuario.pass, socio.Nombre,"+
-        " socio.Apellido, socio.DNI, usuario.ultimo_ingreso" +
-        " FROM `usuario` "+
-        " JOIN socio"+
-        " ON usuario.socio_idSocio = socio.idSocio"+
-        " WHERE `tipoUsuario` = 2 AND usuario.estado_actividad = 0;";
+        select = this.selectTodos2();
         return CONECTOR.ejecutarConsulta(select);
     }
-    
+    public String selectTodos2(){
+           ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/selectTodos_usuario.sql");
+        return sql;
+    }
     public boolean usuarioRepetido(String user, String id){
         boolean existe = false;
         ArrayList respuesta;
-        String select = "SELECT * FROM `usuario` WHERE `user` = '"+user+"' AND `idUsuario` != "+id;
+        String select = this.usuarioRepetido2();
         respuesta = CONECTOR.ejecutarConsulta(select);
         if(respuesta.isEmpty() != true){
             existe = true;
         }
         return existe;
+    }
+    public String usuarioRepetido2(){
+           ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/usuario_repetido.sql");
+        return sql;
     }
 
     @Override
@@ -188,7 +205,7 @@ public class Usuario implements IModelo{
     
     public boolean deleteUser(int id){
         boolean respuesta = false;
-        String select = "SELECT socio_idSocio FROM usuario where idUsuario = "+id;
+        String select = this.deleteUser2();
         ArrayList resp = CONECTOR.ejecutarConsulta(select);
         if(((ArrayList) resp.get(0)).get(0) == null){
             String bajaUsuario = "CALL BajaUsuario("+id+")";
@@ -206,6 +223,11 @@ public class Usuario implements IModelo{
             }  
         }
         return respuesta;
+    }
+    public String deleteUser2(){
+          ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/delete_usuario.sql");
+        return sql;
     }
     
     public boolean comprobarExistencia(String campo, String valor, int flag){
@@ -231,16 +253,23 @@ public class Usuario implements IModelo{
     public ArrayList selectUno(String id, String tipo){
         ArrayList lista = new ArrayList();
         if("vedel".equals(tipo)){
-            String select = "SELECT `user`, `pass`, `nombre`, `apellido`, "
-                    + "`dni`, `socio_idSocio` FROM `usuario` WHERE `idUsuario` = "+id+";";
+            String select = this.selectUno1();
             lista = CONECTOR.ejecutarConsulta(select);
         } else if("alumno".equals(tipo)){
-            String select = "SELECT usuario.user, usuario.pass, socio.Nombre, "
-                    + "socio.Apellido, socio.DNI, usuario.socio_idSocio FROM `usuario` JOIN socio ON "
-                    + "usuario.socio_idSocio = socio.idSocio WHERE usuario.idUsuario = "+id+";";
+            String select = this.selectUno2();
             lista = CONECTOR.ejecutarConsulta(select);
         }
         return lista;
+    }
+    public String selectUno1(){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/selectUno_usuario.sql");
+        return sql;
+    }
+    public String selectUno2(){
+        ManejadorDeArchivos ma = new ManejadorDeArchivos();
+        String sql = ma.abrirArchivo("plantillas/usuario/selectUno2_usuario.sql");
+        return sql;
     }
 
     public void registrarActividad(String id) {

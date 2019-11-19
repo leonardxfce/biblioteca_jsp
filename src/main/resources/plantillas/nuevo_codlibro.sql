@@ -1,0 +1,1 @@
+INSERT INTO `biblioteca`.`codlibro`(`codLibro`) VALUES (`{COD_LIBRO}`);

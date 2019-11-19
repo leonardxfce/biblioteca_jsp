@@ -1,0 +1,1 @@
+SELECT usuario.user, usuario.pass from usuario inner join socio on usuario.socio_idSocio = socio.idSocio where socio.DNI = '{dni}';

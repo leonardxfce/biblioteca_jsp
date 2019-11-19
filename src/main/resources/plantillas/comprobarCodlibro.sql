@@ -1,0 +1,1 @@
+Select `codLibro` FROM `codLibro` WHERE `codLibro`.`codLibro` = {CODLIBRO};

@@ -57,7 +57,7 @@ public class Libro implements IModelo {
 
     public String prepararInsert() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/nuevo_libro.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/nuevo_libro.sql");
         sql = sql.replace("{TITULO}", this.Titulo);
         sql = sql.replace("{TEMA}", Integer.toString(this.Tema));
         return sql;
@@ -71,7 +71,7 @@ public class Libro implements IModelo {
 
     public String prepararUpdate(String identificador) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/update_libro.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/update_libro.sql");
         sql = sql.replace("{TITULO}", this.Titulo);
         sql = sql.replace("{ID_TEMA}", Integer.toString(this.Tema));
         sql = sql.replace("{IDENTIFICADOR}", identificador);
@@ -86,20 +86,20 @@ public class Libro implements IModelo {
 
     public String prepararSelectTodos() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/selectTodos_libro.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/selectTodos_libro.sql");
         return sql;
     }
 
     @Override
     public ArrayList selectTodos() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String select = ma.abrirArchivo("plantillas/selectTodos_libro.sql");
+        String select = ma.abrirArchivo("plantillas/libro/selectTodos_libro.sql");
         return CONECTOR.ejecutarConsulta(select);
     }
 
     public String prepararContarLibros(String idlibro) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/contar_libros.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/contar_libros.sql");
         sql = sql.replace("{ID_LIBRO}", idlibro);
         return sql;
     }
@@ -112,7 +112,7 @@ public class Libro implements IModelo {
 
     public String prepararComprobarExistenciaDeRegistro(String[] data) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/comprobarExistenciaDeRegistro_libro.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/comprobarExistenciaDeRegistro_libro.sql");
         sql = sql.replace("{DATA}", data[1]);
         return sql;
     }
@@ -135,7 +135,7 @@ public class Libro implements IModelo {
 
     public String prepararSelectUno(String id) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/selectUno_libro.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/selectUno_libro.sql");
         sql = sql.replace("{ID_LIBRO}", id);
         return sql;
     }
@@ -153,7 +153,7 @@ public class Libro implements IModelo {
 
     public String prepararUpdatePrestable(int idExistencia, int valor) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/updatePrestable_libro.sql");
+        String sql = ma.abrirArchivo("plantillas/libro/updatePrestable_libro.sql");
         sql = sql.replace("{ID_EXISTENCIA}", Integer.toString(idExistencia));
         sql = sql.replace("{VALOR}", Integer.toString(valor));
         return sql;

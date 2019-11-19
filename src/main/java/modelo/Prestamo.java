@@ -154,7 +154,7 @@ public class Prestamo implements IModelo {
      */
     public String prepareInsert() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/insert_Prestamo.sql");
+        String sql = ma.abrirArchivo("plantillas/prestamos/insert_Prestamo.sql");
         sql = sql.replace("{Socio_idSocio}", Integer.toString(this.Socio));
         sql = sql.replace("{Libro_idLibro}", Integer.toString(this.Libro));
         sql = sql.replace("{numPrestamo}", Integer.toString(this.numPrestamo));
@@ -179,7 +179,7 @@ public class Prestamo implements IModelo {
      */
     public String prepareUpdate(String identificador) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/update_Prestamo.sql");
+        String sql = ma.abrirArchivo("plantillas/prestamos/update_Prestamo.sql");
         sql = sql.replace("{Estado_idEstado}", Integer.toString(this.Estado));
         sql = sql.replace("{identificador}", identificador);
         return sql;
@@ -200,7 +200,7 @@ public class Prestamo implements IModelo {
      */
     public String prepareSelectTodos() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/selectTodos_prestamo.sql");
+        String sql = ma.abrirArchivo("plantillas/prestamos/selectTodos_prestamo.sql");
         return sql;
 
     }
@@ -222,7 +222,7 @@ public class Prestamo implements IModelo {
      */
     public String prepareContarPrestamos(String idLibro) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/contar_prestamos.sql");
+        String sql = ma.abrirArchivo("plantillas/prestamos/contar_prestamos.sql");
         sql = sql.replace("{ID_LIBRO}", idLibro);
         return sql;
     }
@@ -241,7 +241,7 @@ public class Prestamo implements IModelo {
      */
     public String prepareUltimoPrestamo() {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/select_ultimoPrestamo.sql");
+        String sql = ma.abrirArchivo("plantillas/prestamos/select_ultimoPrestamo.sql");
         return sql;
     }
 
@@ -276,7 +276,7 @@ public class Prestamo implements IModelo {
 
     public String prepareComprobarDeudaConInfo(String id) {
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/comprobarDeudaConInfo_prestamos.sql");
+        String sql = ma.abrirArchivo("plantillas/prestamos/comprobarDeudaConInfo_prestamos.sql");
         sql = sql.replace("{Socio_idSocio}", id);
         return sql;
     }

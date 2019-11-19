@@ -52,7 +52,7 @@ public class Carrera implements IModelo{
     }
     public String insert2(){
         ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/nuevacarrera.sql");
+        String sql = ma.abrirArchivo("plantillas/carrera/nuevacarrera.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera);    
         return sql;
     }
@@ -69,7 +69,7 @@ public class Carrera implements IModelo{
    
     public String update2 (){
           ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/actualizar.sql");
+        String sql = ma.abrirArchivo("plantillas/carrera/actualizar.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera);  
         return sql;
     }
@@ -85,7 +85,7 @@ public class Carrera implements IModelo{
     }
     public String selecTodos2(){
          ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/seleccionartodos.sql");
+        String sql = ma.abrirArchivo("plantillas/carrera/seleccionartodos.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
         return sql;
     }
@@ -97,7 +97,7 @@ public class Carrera implements IModelo{
     }
     public String comprobarExistenciaDeRegistro2(){
           ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/comprobarusuario.sql");
+        String sql = ma.abrirArchivo("plantillas/carrera/comprobarusuario.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
         return sql;
     }
@@ -109,7 +109,7 @@ public class Carrera implements IModelo{
     }
     public String delete2(){
              ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/borrar.sql");
+        String sql = ma.abrirArchivo("plantillas/carrera/borrar.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
         return sql;
     }
@@ -122,7 +122,7 @@ public class Carrera implements IModelo{
     }
     public String selectUno2(){
              ManejadorDeArchivos ma = new ManejadorDeArchivos();
-        String sql = ma.abrirArchivo("plantillas/seleccionaruno.sql");
+        String sql = ma.abrirArchivo("plantillas/carrera/seleccionaruno.sql");
         sql = sql.replace("{NombreCarrera}", this.NombreCarrera); 
         return sql;
     
